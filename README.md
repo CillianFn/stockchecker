@@ -26,3 +26,4 @@
 - Deploy on cloud infrastructure
 - Cloudformation - API Gateway - EC2 - Hosted mongodb
 - CICD
+- Add spring actuator and Promtheus for metrics/micrometer
