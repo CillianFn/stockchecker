@@ -13,7 +13,7 @@ import java.net.URL;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class StockcheckControllerIT {
+public class ProductControllerIT {
     @LocalServerPort
     private int port;
 
@@ -28,9 +28,9 @@ public class StockcheckControllerIT {
     }
 
     @Test
-    public void getHello() {
+    public void healthCheck() {
         ResponseEntity<String> response = template.getForEntity(base.toString(),
                 String.class);
-        assertThat(response.getBody()).isEqualTo("Controller is working");
+        assertThat(response.getBody()).isEqualTo("Healthy");
     }
 }

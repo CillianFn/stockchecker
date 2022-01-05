@@ -1,9 +1,15 @@
 # stockchecker
 
+## Requirements 
+- Java 1.8+
+- Maven 3.6
+- MongoDB
+    - https://docs.mongodb.com/manual/administration/install-community/
+
 ## TODO 
 
 - Arch diagram ++ future upstream/downstream services
-    - API for stock check **internal to product - deployed in a VPC - no auth required
+    - API for stock check **internal to product - deployed in a VPC
     - Additional service for placing order -- hits stock check API -- service discovery
     - Publish update events to support analytics ++ additional DB for analytics
 
@@ -11,19 +17,20 @@
 - Swagger
 
 - Endpoints for getting information about stock
-    - /stock                  (GET all stock - paginated)
-    - /stock/{id}             (GET stock of specific item)
-    - /stock/{id}/metadata    (GET additional metadata about stock of specific item)
+    - /products               (GET all products - paginated)
+    - /product/{id}           (GET specific product)
+    - /product/{id}           (PUT specific product)
+    - /product/{id}           (DELETE specific product)
+  
+    - /stock                  (GET all stock - paginated
+    - /stock/{id}             (GET specific stock)
+    - /stock/{id}             (PATCH specific stock) Partial fail or fully in the example 2 items requested but 1 available?
+    'Stock automatically created/deleted when product is created/deleted'
+      'PUT/POST/DELETE not supported'
+    
 
-- Endpoints for updating stock
-    - /stock/{id}             PUT update stock - takes quantity as an input? Partial fail or fully in the example 2 items requested but 1 available
+- Strongly consistent reads to ensure most up to date information
 
-- Strongly consistent reads to ensure most up to data information
-
-- Models / contracts
 - Unit and integration testing. JUnit & Mockito
 - Embedded Mongo?
-- Deploy on cloud infrastructure
-- Cloudformation - API Gateway - EC2 - Hosted mongodb
-- CICD
 - Add spring actuator and Promtheus for metrics/micrometer
