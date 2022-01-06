@@ -40,6 +40,11 @@
         </dependency>
 
         <!-- Test dependencies -->
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Dev tools // Build -> Rebuild Project to refresh classpath -->
         <dependency>

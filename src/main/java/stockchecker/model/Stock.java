@@ -1,24 +1,41 @@
 package stockchecker.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@NoArgsConstructor
+@Document
 public class Stock {
 
-    // TODO - review schema, partition key, required fields etc.
+    @Id
+    private String id;
     private Product product;
     private int amount;
     private boolean inStock;
 
     public Stock(Product product, int amount, boolean inStock) {
         this.product = product;
+        this.id = product.getId();
         this.amount = amount;
         this.inStock = inStock;
     }
-    private void setInStock() {
-        inStock = amount > 0 ? true : false;
+
+    public Stock(Product product) {
+        this.product = product;
+        this.id = product.getId();
+        this.amount = 1;
+        this.inStock = true;
+    }
+
+    public void setAmount(int amount) {
+        if (amount > 0) {
+            this.amount = amount;
+            this.inStock = true;
+        } else {
+            this.amount = 0;
+            this.inStock = false;
+        }
     }
 
     @Override

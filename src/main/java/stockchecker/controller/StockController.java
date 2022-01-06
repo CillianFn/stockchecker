@@ -1,6 +1,8 @@
 package stockchecker.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,8 +12,9 @@ import stockchecker.model.Product;
 import stockchecker.model.Stock;
 import stockchecker.service.StockService;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @RestController
 public class StockController {
@@ -22,25 +25,29 @@ public class StockController {
     private StockService stockService;
 
     @GetMapping("/stock/{id}")
-    public Stock getStock(@PathVariable String id) {
-        Optional<Stock> stock = stockService.getStock(id);
-
-        //TODO Implement logic to check for null case, fail if not found with appropriate HTTP status code
-
-        return stock.get();
+    public ResponseEntity<?> getStock(@PathVariable String id) {
+        return ResponseEntity.of(stockService.getStock(id));
     }
 
     @PatchMapping("/stock/{id}")
-    public Stock patchStock(@PathVariable String id, @RequestBody Stock stock) {
+    public ResponseEntity<?> patchStock(@PathVariable String id, @RequestBody Stock stock) {
         Product product = new Product(id);
         stock.setProduct(product);
-        return stockService.patchStock(stock);
+
+        Stock patchedStock = stockService.patchStock(stock);
+        return ResponseEntity.accepted().body(patchedStock);
     }
 
     @GetMapping("/stock")
-    public List<Stock> getStock() {
+    public ResponseEntity<Map<String, Object>> getStock() {
+        List<Stock> stock = stockService.getStock();
 
-        //TODO check if list null or empty, fail if null or empty with appropriate HTTP status code
-        return stockService.getStock();
+        if(stock == null || stock.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("stock", stock);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

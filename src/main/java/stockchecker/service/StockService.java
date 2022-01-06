@@ -23,7 +23,6 @@ public class StockService {
     }
 
     public Stock patchStock(Stock stock) {
-        // TODO see if anything else is needed here, does patch work out of the box if correct object/ID is specified
         return stockRepository.save(stock);
     }
 }
