@@ -21,11 +21,6 @@ public class Product {
         this.id = id;
     }
 
-    public Product(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
     @Override
     public String toString() {
         return String.format(

@@ -37,13 +37,17 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public void deleteProduct(String id) {
+    public void deleteProduct(String id) throws Exception {
         Optional<Stock> stock = stockService.getStock(id);
         if(!stock.isPresent()) {
             return;
         } else {
             Stock updateStock = stock.get();
             int amount = updateStock.getAmount();
+            if (amount == 0) {
+                // TODO custom/meaningful exception
+                throw new Exception("This product has no stock");
+            }
             updateStock.setAmount(--amount);
             stockService.patchStock(updateStock);
         }

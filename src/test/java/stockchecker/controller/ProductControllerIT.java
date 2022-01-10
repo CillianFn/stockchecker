@@ -33,4 +33,9 @@ public class ProductControllerIT {
                 String.class);
         assertThat(response.getBody()).isEqualTo("Healthy");
     }
+
+    @Test
+    public void testAddProduct() {
+
+    }
 }
