@@ -45,7 +45,7 @@ public class ProductService {
             Stock updateStock = stock.get();
             int amount = updateStock.getAmount();
             if (amount == 0) {
-                // TODO custom/meaningful exception
+                // TODO custom/meaningful exception, prevents Stock objects from having a negative amount or being deleted
                 throw new Exception("This product has no stock");
             }
             updateStock.setAmount(--amount);
