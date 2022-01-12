@@ -46,6 +46,7 @@ public class ProductService {
             int amount = updateStock.getAmount();
             if (amount == 0) {
                 // TODO custom/meaningful exception, prevents Stock objects from having a negative amount or being deleted
+                // Does this bubble up to controller and create a meaningful ResponsEntity?
                 throw new Exception("This product has no stock");
             }
             updateStock.setAmount(--amount);

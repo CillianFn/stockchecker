@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
 import stockchecker.model.Product;
 import stockchecker.service.ProductService;
 
@@ -22,12 +21,6 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
-    @RequestMapping("/")
-    public String index() {
-        // Used for dev
-        return "Healthy";
-    }
 
     @GetMapping("/product/{id}")
     public ResponseEntity<?> getProduct(@PathVariable String id) {
