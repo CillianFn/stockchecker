@@ -22,6 +22,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static stockchecker.TestUtils.getProduct;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +39,7 @@ public class ProductServiceIT {
 
     @Test
     public void testAddNewProduct() {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Stock newStock = new Stock(product);
 
         given(productRepository.save(product)).willReturn(product);
@@ -52,7 +53,7 @@ public class ProductServiceIT {
 
     @Test
     public void testAddExistingProduct() {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Stock existingStock = new Stock(product);
         existingStock.setAmount(2);
 
@@ -68,7 +69,7 @@ public class ProductServiceIT {
 
     @Test
     public void testGetProduct() {
-        Product expectedProduct = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product expectedProduct = getProduct();
 
         given(productRepository.findById(expectedProduct.getId())).willReturn(Optional.of(expectedProduct));
 
@@ -79,7 +80,7 @@ public class ProductServiceIT {
 
     @Test
     public void testGetProducts() {
-        Product expectedProduct = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product expectedProduct = getProduct();
         Product expectedProduct1 = new Product("test-1235", "Filter Coffee - 250g", "Blend");
         Product expectedProduct2 = new Product("test-1236", "Filter Coffee - 1000g", "Blend");
         List<Product> expectedProducts = new ArrayList<>(Arrays.asList(expectedProduct, expectedProduct1, expectedProduct2));
@@ -101,7 +102,7 @@ public class ProductServiceIT {
 
     @Test
     public void testDeleteProduct() throws Exception {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Stock existingStock = new Stock(product);
 
         given(stockService.getStock(existingStock.getId())).willReturn(Optional.of(existingStock));
@@ -113,8 +114,8 @@ public class ProductServiceIT {
     }
 
     @Test
-    public void testDeleteProductNotInStock() throws Exception {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+    public void testDeleteProductNotInStock() {
+        Product product = getProduct();
         Stock existingStock = new Stock(product);
         existingStock.setAmount(0);
 

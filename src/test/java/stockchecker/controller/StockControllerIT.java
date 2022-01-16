@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static stockchecker.TestUtils.getProduct;
 
 @WebMvcTest(controllers = StockController.class)
 @ActiveProfiles("test")
@@ -41,7 +42,7 @@ public class StockControllerIT {
 
     @Test
     public void testGetStock() throws Exception {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Stock expectedStock = new Stock(product);
 
         given(stockService.getStock(expectedStock.getId())).willReturn(Optional.of(expectedStock));
@@ -64,7 +65,7 @@ public class StockControllerIT {
 
     @Test
     public void testGetStockMultiple() throws Exception {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Product product1 = new Product("test-1235", "Filter Coffee - 250g", "Blend");
         Product product2 = new Product("test-1236", "Filter Coffee - 1000g", "Blend");
 
@@ -84,7 +85,7 @@ public class StockControllerIT {
     @Test
     public void testPatchStock() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Stock expectedStock = new Stock(product);
 
         given(stockService.patchStock(any(Stock.class))).willReturn(expectedStock);
@@ -105,7 +106,7 @@ public class StockControllerIT {
     @Test
     public void testPatchStockOfNonExistentProduct() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Stock expectedStock = new Stock(product);
 
         given(stockService.patchStock(any(Stock.class))).willReturn(expectedStock);

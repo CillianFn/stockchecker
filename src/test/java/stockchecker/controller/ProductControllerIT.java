@@ -21,6 +21,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static stockchecker.TestUtils.getProduct;
 
 
 @WebMvcTest(controllers = ProductController.class)
@@ -35,7 +36,7 @@ public class ProductControllerIT {
 
     @Test
     public void testGetProduct() throws Exception {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
 
         given(productService.getProduct(product.getId())).willReturn(Optional.of(product));
 
@@ -54,7 +55,7 @@ public class ProductControllerIT {
 
     @Test
     public void testGetProducts() throws Exception {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Product product1 = new Product("test-1235", "Filter Coffee - 250g", "Blend");
         Product product2 = new Product("test-1236", "Filter Coffee - 1000g", "Blend");
 
@@ -69,7 +70,7 @@ public class ProductControllerIT {
 
     @Test
     public void testDeleteProduct() throws Exception {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
 
         this.mockMvc.perform(delete("/product/{id}", product.getId()))
                 .andExpect(status().isNoContent());
@@ -78,7 +79,7 @@ public class ProductControllerIT {
     @Test
     public void testAddProduct() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
 
         given(productService.addProduct(product)).willReturn(product);
 

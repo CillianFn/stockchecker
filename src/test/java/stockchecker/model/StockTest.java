@@ -3,12 +3,13 @@ package stockchecker.model;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static stockchecker.TestUtils.getProduct;
 
 public class StockTest {
 
     @Test
     public void testCreateStock() {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Stock stock = new Stock(product);
         assertEquals(product.getId(), stock.getId());
         assertEquals(1, stock.getAmount());
@@ -17,7 +18,7 @@ public class StockTest {
 
     @Test
     public void testSetAmount() {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Stock stock = new Stock(product);
         stock.setAmount(5);
 
@@ -26,7 +27,7 @@ public class StockTest {
 
     @Test
     public void testSetAmountToZero() {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Stock stock = new Stock(product);
         stock.setAmount(0);
 

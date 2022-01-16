@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static stockchecker.TestUtils.getProduct;
 
 @ExtendWith(MockitoExtension.class)
 public class StockServiceIT {
@@ -31,7 +32,7 @@ public class StockServiceIT {
 
     @Test
     public void testGetStock() {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Stock expectedStock = new Stock(product);
 
         given(stockRepository.findById(expectedStock.getId())).willReturn(Optional.of(expectedStock));
@@ -43,7 +44,7 @@ public class StockServiceIT {
 
     @Test
     public void testGetMultipleStock() {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Product product1 = new Product("test-1235", "Filter Coffee - 250g", "Blend");
         Product product2 = new Product("test-1236", "Filter Coffee - 1000g", "Blend");
 
@@ -62,7 +63,7 @@ public class StockServiceIT {
 
     @Test
     public void testPatchStock() {
-        Product product = new Product("test-1234", "Filter Coffee - 250g", "Single Origin");
+        Product product = getProduct();
         Stock expectedStock = new Stock(product);
 
         given(stockRepository.save(expectedStock)).willReturn(expectedStock);

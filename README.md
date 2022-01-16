@@ -11,36 +11,25 @@ API guidelines are loosely based on [Zalandos RESTful API Guidelines](https://op
 - [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
 
 
-## Architecture
+## API 
 
-- User -> HTTP API -> Service Level (e.g. AWS EC2) <--> MongoDB
-  - GET/PUT/DELETE product 
-  - GET stock
+- Products can be created, updated, deleted and retrieved via the `/product/{id}` endpoint.
+- When a Product object is created, a Stock object is automatically created.
+- There is a 1-1 mapping between Product and Stock objects. 
+- It is not possible to create or delete Stock objects via the API.
+- IDs must be passed when creating/updating any item to ensure idempotency.
+- It is possible to update a Stock object via the PATCH endpoint.
 
-- Arch diagram ++ future upstream/downstream services
-    - API for stock check **internal to product - deployed in a VPC
-    - Additional service for placing order -- hits stock check API -- service discovery
-    - Publish update events to support analytics ++ additional DB for analytics
+## Swagger
+ - The Swagger docs can be found at `http://localhost:8080/swagger-ui/index.html#/
 
-- Swagger
 
-- Endpoints for getting information about stock
-    - /products               (GET all products)
-    - /product/{id}           (GET specific product)
-    - /product/{id}           (PUT specific product)
-    - /product/{id}           (DELETE specific product)
-  
-    - /stock                  (GET all stock)
-    - /stock/{id}             (GET specific stock)
-    - /stock/{id}             (PATCH specific stock) Partial fail or fully in the example 2 items requested but 1 available?
-    'Stock automatically created/deleted when product is created/deleted'
-      'PUT/POST/DELETE not supported'
-    
 
 ## TODO 
 
 - API Pagination
-- Coverage and checkstyle  
+- Coverage and checkstyle
 - CICD: automated builds on commit
 - Strongly consistent reads to ensure most up to date information on read
-- Add spring actuator and Promtheus for metrics/micrometer
+- JSON files for test data
+- Additional microservice that uses product/stock APIs
