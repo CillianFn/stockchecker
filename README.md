@@ -23,6 +23,7 @@ API guidelines are loosely based on [Zalandos RESTful API Guidelines](https://op
 ## Swagger
  - The Swagger docs can be found at `http://localhost:8080/swagger-ui/index.html#/
 
+![image](https://user-images.githubusercontent.com/18357650/149675801-106d057e-46cc-4298-ba93-496b6ebeeb21.png)
 
 
 ## TODO 
